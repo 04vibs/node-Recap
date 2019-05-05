@@ -1,8 +1,6 @@
-console.log('Before');
-
 //asynchronous
 getUser(1,getRepositories);
-console.log('After');
+
 
 function getRepositories(user){
     getRepositories(user.gitHubUsername,getCommits)     
