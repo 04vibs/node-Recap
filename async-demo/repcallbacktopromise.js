@@ -19,6 +19,21 @@ p.then(user=>getRepositories(user.gitHubUsername))
  .catch(err => console.log('Error',err.message));
 console.log('After');
 
+
+//async await
+async function displayCommits(){
+    try{
+        const user = await getUser(1);
+    const repos = await getRepositories(user.gitHubUsername);
+    const commits = await getCommits(repos[0]);
+    console.log(commits);
+    
+    }
+    catch(err){
+        console.log(err);
+    }    
+}
+displayCommits()
 // Promises
 
 // how to write promises
