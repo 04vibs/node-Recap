@@ -34,6 +34,11 @@ async function createCourse(){
 }
 
 async function getCourses(){
+
+    const pageNumber = 2;
+    const pageSize = 10; 
+    
+
 // comparison operators in mongodb
     // eq(equal)
     // ne(not equal)
@@ -53,16 +58,30 @@ async function getCourses(){
     
     // .find({ author:'Mosh',isPublished: true})
     
-    //logical operators
-        .find()
-        .or([{author:'Puri'},{isPublished: true}])
+    // logical operators
+    //     .find()
+    //     .or([{author:'Puri'},{isPublished: true}])
 
     // comparison operators
     //.find({price: {$gte: 10, $lte: 20} })
    // .find({price:{$in:[10,15,20] } })
-    .limit(10)
+    
+   // Regular expressions
+   // starts with Mosh
+   .find({author: /^Mosh/})
+
+   //Ends with Hamedani 
+   // i for case senstivity
+   .find({author: /Hamedani$/i})
+   
+   // contains Mosh
+    .find({author: /.*Mosh.*/i})
+   
+        .skip((pageNumber-1)*pageSize)
+    .limit(pageSize)
     .sort({name: 1})
-    .select({name:1 , tags: 1});
+    .count()
+   // .select({name:1 , tags: 1});
 
     console.log(courses);
 }
