@@ -34,7 +34,7 @@ async function createCourse(){
 }
 
 async function getCourses(){
-
+// comparison operators in mongodb
     // eq(equal)
     // ne(not equal)
     // gt(greater than)
@@ -44,10 +44,22 @@ async function getCourses(){
     // in 
     // nin (not in)
 
+
+    // logical operators 
+    // or 
+    // and
+
     const courses = await Course
-    //.find({ author:'Mosh',isPublished: true})
+    
+    // .find({ author:'Mosh',isPublished: true})
+    
+    //logical operators
+        .find()
+        .or([{author:'Puri'},{isPublished: true}])
+
+    // comparison operators
     //.find({price: {$gte: 10, $lte: 20} })
-    .find({price:{$in:[10,15,20] } })
+   // .find({price:{$in:[10,15,20] } })
     .limit(10)
     .sort({name: 1})
     .select({name:1 , tags: 1});
