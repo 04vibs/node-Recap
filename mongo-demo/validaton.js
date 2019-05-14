@@ -22,8 +22,13 @@ const courseSchema = new mongoose.Schema({
     tags: {
         type: Array,
         validate:{
-            validator: function(v) {
-                return v.length >0;
+            isAsync: true,
+            validator: function(v,callback) {
+                setTimeout(()=>{
+                    const result = v && v.length > 0;
+                    callback(result);
+                },4000);
+                
             },
             message: 'A course should have atleast one tag.'
         }
@@ -49,7 +54,8 @@ async function createCourse(){
         name:'Angular Course',
       category:'-',
         author: 'Puri',
-        tags: ['angular','frontend'],
+        tags: null,
+       // tags: ['angular','frontend'],
         isPublished: true,
         price: 15
         
