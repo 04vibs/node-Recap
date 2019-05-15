@@ -16,7 +16,10 @@ const courseSchema = new mongoose.Schema({
     category:{
         type: String,
         required: true,
-        enum: ['web','mobile','network']
+        enum: ['web','mobile','network'],
+        lowercase:true,
+      //  uppercase: true,
+        trim: true
     },
     author:String,
     tags: {
@@ -41,7 +44,9 @@ const courseSchema = new mongoose.Schema({
             return this.isPublished;
         },
         min: 10,
-        max: 200
+        max: 200,
+        get: v=> Math.round(v),
+        set: v=> Math.round(v),
     }
 });
 
@@ -52,12 +57,12 @@ async function createCourse(){
    
     const course = new Course({
         name:'Angular Course',
-      category:'-',
+      category:'web',
         author: 'Puri',
-        tags: null,
+        tags: ['frontend'],
        // tags: ['angular','frontend'],
         isPublished: true,
-        price: 15
+        price: 15.8
         
     });
     
@@ -67,7 +72,9 @@ async function createCourse(){
     console.log(result);
     }
     catch(ex){
-        console.log(ex.message);
+        for(field in ex.errors){
+            console.log(ex.errors[field].message);
+        }
     }
 }
 
